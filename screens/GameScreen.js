@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Alert, View, StyleSheet, FlatList, Text } from 'react-native'
+import { Alert, View, StyleSheet, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 import Title from '../components/ui/Title'
@@ -28,7 +28,7 @@ function GameScreen ({ userNumber, onGameOver }) {
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver()
+      onGameOver(guessRounds.length)
     }
   }, [currentGuess, userNumber, onGameOver])
 
@@ -70,7 +70,7 @@ function GameScreen ({ userNumber, onGameOver }) {
           </View>
         </View>
       </Card>
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => {
@@ -80,8 +80,8 @@ function GameScreen ({ userNumber, onGameOver }) {
                 guess={itemData.item}
               />
             )
-        }}
-        keyExtractor={(item) => item}
+          }}
+          keyExtractor={(item) => item}
         />
       </View>
     </View>
@@ -101,6 +101,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16
   }
 })
 
