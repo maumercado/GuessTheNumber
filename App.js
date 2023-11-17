@@ -14,11 +14,17 @@ SplashScreen.preventAutoHideAsync()
 export default function App () {
   const [userNumber, setUserNumber] = useState()
   const [gameIsOver, setGameIsOver] = useState(true)
+  const [rounds, setRounds] = useState(0)
 
   const [fontsLoaded] = useFonts({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
   })
+
+  function startNewGameHandler () {
+    setUserNumber(null)
+    setRounds(0)
+  }
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -45,11 +51,11 @@ export default function App () {
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen />
+    screen = <GameOverScreen userNumber={userNumber} rounds={rounds} onNewGame={startNewGameHandler}/>
   }
 
   return (
-    <LinearGradient colors={[colors.primary[500], colors.secondary[500]]} style={styles.rootScreen}>
+    <LinearGradient colors={[colors.primary[500], colors.secondary[500]]} style={styles.rootScreen} onLayout={onLayoutRootView}>
       <ImageBackground
         source={require('./assets/images/background.png')}
         resizeMode='cover'
