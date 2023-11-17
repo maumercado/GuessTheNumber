@@ -1,5 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
-import colors from '../constants/colors'
+import colors from '../../constants/colors'
 
 function PrimaryButton ({ children, onPress }) {
   return (
